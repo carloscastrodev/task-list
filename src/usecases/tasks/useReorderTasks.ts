@@ -8,6 +8,8 @@ interface ReorderTaskData {
   destinationIndex: number;
 }
 
+type TaskIdToPriorityMap = Record<string, number>;
+
 export const useReorderTasks: MutateHook<ReorderTaskData> = (queryKey) => {
   const queryClient = useQueryClient();
 
@@ -31,7 +33,7 @@ export const useReorderTasks: MutateHook<ReorderTaskData> = (queryKey) => {
   };
 
   const { mutate, isLoading, isError } = useMutation<
-    Record<string, number>,
+    TaskIdToPriorityMap,
     unknown,
     ReorderTaskData,
     void
@@ -41,13 +43,10 @@ export const useReorderTasks: MutateHook<ReorderTaskData> = (queryKey) => {
 
       setQueryData();
 
-      const taskPriorityMap = taskList.reduce(
-        (acc, next) => {
-          acc[next.id] = next.priority;
-          return acc;
-        },
-        {} as Record<string, number>
-      );
+      const taskPriorityMap = taskList.reduce((acc, next) => {
+        acc[next.id] = next.priority;
+        return acc;
+      }, {} as TaskIdToPriorityMap);
 
       //const task = actuallySendTaskToBackend()
 
