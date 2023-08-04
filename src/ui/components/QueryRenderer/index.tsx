@@ -16,16 +16,18 @@ interface QueryRendererProps<TData, TQueryProps> {
   loaderComponent?: React.FC<void>;
 }
 
+const DefaultQueryRendererErrorComponent = () => (
+  <EmptyState.Root>
+    <EmptyStateMessage text="There was an error fetching that." />
+  </EmptyState.Root>
+);
+
 function QueryRenderer<TData, TQueryProps>({
   useQueryHook,
   hookProps,
   renderComponent,
   loaderComponent = Skeleton,
-  errorComponent = () => (
-    <EmptyState.Root>
-      <EmptyStateMessage text="There was an error fetching that." />
-    </EmptyState.Root>
-  ),
+  errorComponent = DefaultQueryRendererErrorComponent,
 }: QueryRendererProps<TData, TQueryProps>) {
   const { data, isLoading, isError, errorMessage, refetch, queryKey } =
     useQueryHook(hookProps);
