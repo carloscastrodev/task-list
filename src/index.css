@@ -40,3 +40,47 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #cbd5e1;
 }
+
+@layer components {
+  .btn {
+    @apply h-full w-full;
+    @apply font-medium text-white outline-none;
+    @apply border-2 border-transparent p-2;
+    @apply rounded;
+    @apply transition-colors duration-200;
+    @apply active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none;
+  }
+
+  .btn-primary {
+    @apply bg-green-600;
+    &:hover,
+    &:focus {
+      @apply bg-green-500;
+    }
+  }
+
+  .btn-danger {
+    @apply bg-red-600;
+    &:hover,
+    &:focus {
+      @apply bg-red-500;
+    }
+  }
+
+  .btn-outline {
+    @apply border-neutral-50 bg-transparent;
+    &:hover,
+    &:focus {
+      @apply border-transparent  text-neutral-800;
+      @apply bg-slate-100;
+    }
+  }
+
+  .btn-ghost {
+    @apply bg-transparent transition-opacity;
+    &:hover,
+    &:focus {
+      @apply opacity-70;
+    }
+  }
+}
