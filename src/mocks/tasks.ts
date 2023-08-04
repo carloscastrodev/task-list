@@ -6,7 +6,7 @@ export const taskMock: Task = {
   status: TaskStatus.PENDING,
   priority: 0,
   createdAt: '2023-08-03 15:00:00',
-  subTasks: [],
+  subtasks: [],
   parentTaskId: null,
 };
 
@@ -17,9 +17,9 @@ export const taskListMock: TaskList = Array.from({
 }).map((_, i) => ({
   id: TASK_LIST_MOCK_LENGTH - i,
   description: `Task ${i}`,
-  priority: TASK_LIST_MOCK_LENGTH - i,
+  priority: i,
   status: TaskStatus.PENDING,
   createdAt: '2023-08-03 15:00:00',
-  subTasks: [],
+  subtasks: [],
   parentTaskId: null,
 }));
