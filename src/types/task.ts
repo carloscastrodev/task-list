@@ -13,7 +13,7 @@ export interface Task {
   status: TaskStatus;
   priority: number;
   parentTaskId: number | null;
-  subTasks: Task[];
+  subtasks: Task[];
   readonly createdAt: string;
   doneAt?: string;
   deletedAt?: string;
