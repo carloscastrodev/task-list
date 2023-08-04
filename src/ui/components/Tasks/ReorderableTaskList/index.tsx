@@ -42,6 +42,8 @@ export const ReorderableTaskList: QueryRendererRenderComponent<TaskList> = ({
     }
   };
 
+  const usageInstructions = 'Click and drag to reorder';
+
   return (
     <div className="flex h-full flex-col gap-4 overflow-hidden">
       <Tasks.AddTaskInput
@@ -50,7 +52,7 @@ export const ReorderableTaskList: QueryRendererRenderComponent<TaskList> = ({
 
       {!!data.length && (
         <div className="self-center">
-          <Tasks.UsageDescription description="Click and drag to reorder" />
+          <Tasks.UsageDescription description={usageInstructions} />
         </div>
       )}
 
@@ -58,7 +60,7 @@ export const ReorderableTaskList: QueryRendererRenderComponent<TaskList> = ({
         <div className="h-100 overflow-auto">
           <DragDropContext
             onDragEnd={onDragEnd}
-            dragHandleUsageInstructions="Click and drag to reorder"
+            dragHandleUsageInstructions={usageInstructions}
           >
             <StrictModeDroppable droppableId="taskList">
               {(provided) => (
