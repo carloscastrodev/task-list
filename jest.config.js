@@ -5,6 +5,7 @@ export default {
   testEnvironment: 'jsdom',
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
+    '^.+\\.svg$': 'jest-transform-stub',
   },
   moduleNameMapper: {
     '@/(.*)': '<rootDir>/src/$1',
