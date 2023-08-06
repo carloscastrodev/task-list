@@ -4,6 +4,10 @@
 name: Deploy to Firebase Hosting on merge
 'on':
   push:
+    paths-ignore:
+      - 'README.md'
+      - '.dockerignore'
+      - '.gitignore'
     branches:
       - main
 
