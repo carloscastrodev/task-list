@@ -1,6 +1,7 @@
 import FeedbackDialog from '@/ui/components/Dialog/FeedbackDialog';
 import { useState } from 'react';
 import context from './FeedbackDialogContext';
+import constants from '@/constants';
 
 const Provider = context.Provider;
 
@@ -18,7 +19,8 @@ export default function FeedbackDialogProvider({
       value={{
         feedback: feedbackMessage,
         onClose,
-        showFeedback: setFeedbackMessage,
+        showFeedback: (feedback) =>
+          setFeedbackMessage(feedback || constants.DEFAULT_FEEDBACK_MESSAGE),
       }}
     >
       {children}
