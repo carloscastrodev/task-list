@@ -1,3 +1,4 @@
+import constants from '@/constants';
 import { StrictModeDroppable } from '@/packages/react-beautiful-dnd/StrictModeDroppable';
 import { QueryRendererRenderComponent } from '@/types/hooks';
 import { TaskList, Task } from '@/types/task';
@@ -42,8 +43,6 @@ export const ReorderableTaskList: QueryRendererRenderComponent<TaskList> = ({
     }
   };
 
-  const usageInstructions = 'Click and drag to reorder';
-
   return (
     <div className="flex h-full flex-col gap-4 overflow-hidden">
       <Tasks.AddTaskInput
@@ -52,7 +51,9 @@ export const ReorderableTaskList: QueryRendererRenderComponent<TaskList> = ({
 
       {!!data.length && (
         <div className="self-center">
-          <Tasks.UsageDescription description={usageInstructions} />
+          <Tasks.UsageDescription
+            description={constants.TASK_LIST_REORDER_INSTRUCTIONS}
+          />
         </div>
       )}
 
@@ -60,7 +61,9 @@ export const ReorderableTaskList: QueryRendererRenderComponent<TaskList> = ({
         <div className="h-100 overflow-auto">
           <DragDropContext
             onDragEnd={onDragEnd}
-            dragHandleUsageInstructions={usageInstructions}
+            dragHandleUsageInstructions={
+              constants.TASK_LIST_REORDER_INSTRUCTIONS
+            }
           >
             <StrictModeDroppable droppableId="taskList">
               {(provided) => (
