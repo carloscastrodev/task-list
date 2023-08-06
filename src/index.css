@@ -2,6 +2,10 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+:root {
+  --footerHeight: 40px;
+}
+
 @keyframes fade-in {
   from {
     opacity: 0;

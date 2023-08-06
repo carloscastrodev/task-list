@@ -1,7 +1,7 @@
 export function Footer() {
   return (
     <footer
-      className={`mt-auto h-[${footerHeightInPixels}px] border-t-2 border-slate-100`}
+      className={`mt-auto h-[var(--footerHeight)] border-t-2 border-slate-100`}
     >
       <p className="text-center text-sm">
         Made by{' '}
@@ -17,5 +17,3 @@ export function Footer() {
     </footer>
   );
 }
-
-export const footerHeightInPixels = 40;
