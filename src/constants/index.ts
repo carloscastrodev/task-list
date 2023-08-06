@@ -1,3 +1,4 @@
 export default {
-  DEFAULT_FEEDBACK_MESSAGE: 'There was an error doing that. Please try again.',
+  DEFAULT_FEEDBACK_MESSAGE:
+    'An error doing while doing that. Please try again.',
 };
