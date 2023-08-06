@@ -6,7 +6,7 @@ name: Deploy to Firebase Hosting on PR
 
 env:
   VITE_BACKEND_URL: ${{ vars.VITE_BACKEND_URL }}
-  
+
 jobs:
   build_and_preview:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
@@ -17,5 +17,5 @@ jobs:
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_BUZZVEL_TASK_LIST }}'
-          projectId: buzzvel-task-list
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_JOHN_TASK_LIST }}'
+          projectId: john-task-list

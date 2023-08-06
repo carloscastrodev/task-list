@@ -6,9 +6,10 @@ name: Deploy to Firebase Hosting on merge
   push:
     branches:
       - main
+
 env:
   VITE_BACKEND_URL: ${{ vars.VITE_BACKEND_URL }}
-  
+
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
@@ -18,6 +19,6 @@ jobs:
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_BUZZVEL_TASK_LIST }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_JOHN_TASK_LIST }}'
           channelId: live
-          projectId: buzzvel-task-list
+          projectId: john-task-list
