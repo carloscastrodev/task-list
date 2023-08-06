@@ -11,7 +11,7 @@ It consists of a simple task list application with the followings functionalitie
 5. Delete Task
 6. Order Tasks
 
-it can be accessed online at https://buzzvel-task-list.web.app
+The application can be accessed online at https://john-task-list.web.app
 
 ## Getting Started
 
