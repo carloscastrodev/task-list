@@ -1,6 +1,8 @@
 import { updatePriorities } from '@/services/tasks';
 import { MutateHook } from '@/types/hooks';
+import { ServiceError } from '@/types/services';
 import { TaskList } from '@/types/task';
+import { useFeedbackDialog } from '@/ui/components/Dialog/FeedbackDialog/useFeedbackDialog';
 import { updateTasksPriority } from '@/utils';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
@@ -13,6 +15,7 @@ type TaskIdToPriorityMap = Record<string, number>;
 
 export const useReorderTasks: MutateHook<ReorderTaskData> = (queryKey) => {
   const queryClient = useQueryClient();
+  const { showFeedback } = useFeedbackDialog();
 
   const taskList: TaskList = queryClient.getQueryData(queryKey) ?? [];
 
@@ -35,7 +38,7 @@ export const useReorderTasks: MutateHook<ReorderTaskData> = (queryKey) => {
 
   const { mutate, isLoading, isError } = useMutation<
     void,
-    unknown,
+    ServiceError,
     ReorderTaskData,
     void
   >(
@@ -52,8 +55,8 @@ export const useReorderTasks: MutateHook<ReorderTaskData> = (queryKey) => {
       await updatePriorities(taskPriorityMap);
     },
     {
-      onError: (_, { taskIndex, destinationIndex }) => {
-        // report error to user
+      onError: (error, { taskIndex, destinationIndex }) => {
+        showFeedback(error.response?.data?.message);
         reorderAndUpdatePriorities({
           taskIndex: destinationIndex,
           destinationIndex: taskIndex,

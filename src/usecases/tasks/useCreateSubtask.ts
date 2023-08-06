@@ -1,6 +1,8 @@
 import { createTask } from '@/services/tasks';
 import { MutateHook } from '@/types/hooks';
+import { ServiceError } from '@/types/services';
 import { Task, TaskList, TaskStatus } from '@/types/task';
+import { useFeedbackDialog } from '@/ui/components/Dialog/FeedbackDialog/useFeedbackDialog';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 interface CreateSubtaskData {
@@ -10,6 +12,7 @@ interface CreateSubtaskData {
 
 export const useCreateSubtask: MutateHook<CreateSubtaskData> = (queryKey) => {
   const queryClient = useQueryClient();
+  const { showFeedback } = useFeedbackDialog();
 
   const taskList: TaskList = queryClient.getQueryData(queryKey) ?? [];
 
@@ -26,7 +29,7 @@ export const useCreateSubtask: MutateHook<CreateSubtaskData> = (queryKey) => {
 
   const { mutate, isLoading, isError } = useMutation<
     Task,
-    unknown,
+    ServiceError,
     CreateSubtaskData,
     void
   >(
@@ -63,8 +66,8 @@ export const useCreateSubtask: MutateHook<CreateSubtaskData> = (queryKey) => {
 
         setQueryData();
       },
-      onError: (_, { parentTask }) => {
-        // report error to user
+      onError: (error, { parentTask }) => {
+        showFeedback(error.response?.data?.message);
         const parentTaskIndex = getParentIndex(parentTask.id);
 
         const taskIndex = taskList[parentTaskIndex].subtasks.findIndex(

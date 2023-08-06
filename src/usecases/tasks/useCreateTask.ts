@@ -1,6 +1,8 @@
 import { createTask } from '@/services/tasks';
 import { MutateHook } from '@/types/hooks';
+import { ServiceError } from '@/types/services';
 import { Task, TaskList, TaskStatus } from '@/types/task';
+import { useFeedbackDialog } from '@/ui/components/Dialog/FeedbackDialog/useFeedbackDialog';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 interface CreateTaskData {
@@ -9,6 +11,7 @@ interface CreateTaskData {
 
 export const useCreateTask: MutateHook<CreateTaskData> = (queryKey) => {
   const queryClient = useQueryClient();
+  const { showFeedback } = useFeedbackDialog();
 
   const taskList: TaskList = queryClient.getQueryData(queryKey) ?? [];
 
@@ -21,7 +24,7 @@ export const useCreateTask: MutateHook<CreateTaskData> = (queryKey) => {
 
   const { mutate, isLoading, isError } = useMutation<
     Task,
-    unknown,
+    ServiceError,
     CreateTaskData,
     void
   >(
@@ -51,9 +54,8 @@ export const useCreateTask: MutateHook<CreateTaskData> = (queryKey) => {
 
         setQueryData();
       },
-      onError: () => {
-        // report error to user
-        console.log('err', taskList, addedTaskTempId);
+      onError: (error) => {
+        showFeedback(error.response?.data?.message);
 
         queryClient.setQueryData(
           queryKey,

@@ -1,11 +1,14 @@
 import { deleteTask } from '@/services/tasks';
 import { MutateHook } from '@/types/hooks';
+import { ServiceError } from '@/types/services';
 import { Task, TaskList, TaskStatus } from '@/types/task';
+import { useFeedbackDialog } from '@/ui/components/Dialog/FeedbackDialog/useFeedbackDialog';
 import { getParentTaskIndex, mutateTaskInTaskList } from '@/utils';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export const useDeleteTask: MutateHook<Task> = (queryKey) => {
   const queryClient = useQueryClient();
+  const { showFeedback } = useFeedbackDialog();
 
   const taskList: TaskList = queryClient.getQueryData(queryKey) ?? [];
 
@@ -37,7 +40,12 @@ export const useDeleteTask: MutateHook<Task> = (queryKey) => {
     setQueryData();
   };
 
-  const { mutate, isLoading, isError } = useMutation<Task, unknown, Task, void>(
+  const { mutate, isLoading, isError } = useMutation<
+    Task,
+    ServiceError,
+    Task,
+    void
+  >(
     async (task) => {
       const deletedTask: Task = {
         ...task,
@@ -61,8 +69,8 @@ export const useDeleteTask: MutateHook<Task> = (queryKey) => {
           removeTaskFromList(deletedTask);
         }
       },
-      onError: (_, task) => {
-        // report error to user
+      onError: (error, task) => {
+        showFeedback(error.response?.data?.message);
         mutateTaskInTaskList(taskList, task);
         setQueryData();
       },
