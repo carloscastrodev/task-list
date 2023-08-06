@@ -17,7 +17,7 @@ export const useCompleteTask: MutateHook<Task> = (queryKey) => {
   };
 
   const fullyCompleteTask = (task: Task) => {
-    if (task.subtasks?.length) {
+    if (task.subtasks.length) {
       task.subtasks.forEach(fullyCompleteTask);
     }
 

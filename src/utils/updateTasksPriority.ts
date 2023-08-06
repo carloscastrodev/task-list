@@ -2,7 +2,7 @@ import { TaskList } from '@/types/task';
 
 export function updateTasksPriority(taskList: TaskList): TaskList {
   taskList.forEach((task, index) => {
-    if (task.subtasks?.length) {
+    if (task.subtasks.length) {
       updateTasksPriority(task.subtasks);
     }
 

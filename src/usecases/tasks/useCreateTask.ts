@@ -16,7 +16,7 @@ export const useCreateTask: MutateHook<CreateTaskData> = (queryKey) => {
   const taskList: TaskList = queryClient.getQueryData(queryKey) ?? [];
 
   const addedTaskTempId = -1;
-  const addedTaskTempPriority = -1;
+  const addedTaskTempPriority = taskList[0]?.priority - 1 || 0;
 
   const setQueryData = () => {
     queryClient.setQueryData(queryKey, [...taskList]);
