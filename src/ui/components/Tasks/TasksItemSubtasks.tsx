@@ -14,7 +14,7 @@ export function TasksItemSubtasks({
 }: TasksItemSubtasksProps) {
   return (
     <>
-      {task.subtasks.map((subtask) => (
+      {task.subtasks?.map((subtask) => (
         <div className="pl-6 text-xs" key={subtask.id}>
           <TasksItem
             task={subtask}
