@@ -21,7 +21,7 @@ Follow the instructions below to set up and run the application on your local ma
 
 Before running the application, make sure you have the following installed on your system:
 
-- [Node.js](https://nodejs.org/en) (version >=16.13)
+- [Node.js](https://nodejs.org/en) (version >=16)
 - [Docker](https://www.docker.com/get-started/) (if you want to use docker-compose)
 - [npm](https://docs.npmjs.com/getting-started) or [Yarn](https://yarnpkg.com/getting-started) (latest version)
 
