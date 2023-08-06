@@ -4,6 +4,7 @@ import { Task } from '@/types/task';
 export async function createTask({
   description,
   parentTaskId,
+  priority,
 }: {
   description: string;
   priority: number;
@@ -12,6 +13,7 @@ export async function createTask({
   const { data } = await api.post<Task>(`/tasks`, {
     description,
     parentTaskId,
+    priority,
   });
 
   return data;
