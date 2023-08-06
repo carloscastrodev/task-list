@@ -36,7 +36,7 @@ export const useCreateSubtask: MutateHook<CreateSubtaskData> = (queryKey) => {
     async ({ description, parentTask }) => {
       const parentTaskIndex = getParentIndex(parentTask.id);
 
-      taskList[parentTaskIndex].subtasks.unshift({
+      taskList[parentTaskIndex].subtasks?.unshift({
         id: addedTaskTempId,
         description,
         createdAt: new Date().toUTCString(),
@@ -58,11 +58,11 @@ export const useCreateSubtask: MutateHook<CreateSubtaskData> = (queryKey) => {
       onSuccess: (task) => {
         const parentTaskIndex = getParentIndex(task.parentTaskId!);
 
-        const taskIndex = taskList[parentTaskIndex].subtasks.findIndex(
+        const taskIndex = taskList[parentTaskIndex].subtasks!.findIndex(
           (t) => t.id === addedTaskTempId
         );
 
-        taskList[parentTaskIndex].subtasks.splice(taskIndex, 1, task);
+        taskList[parentTaskIndex].subtasks!.splice(taskIndex, 1, task);
 
         setQueryData();
       },
@@ -70,11 +70,11 @@ export const useCreateSubtask: MutateHook<CreateSubtaskData> = (queryKey) => {
         showFeedback(error.response?.data?.message);
         const parentTaskIndex = getParentIndex(parentTask.id);
 
-        const taskIndex = taskList[parentTaskIndex].subtasks.findIndex(
+        const taskIndex = taskList[parentTaskIndex].subtasks!.findIndex(
           (t) => t.id === addedTaskTempId
         );
 
-        taskList[parentTaskIndex].subtasks.splice(taskIndex, 1);
+        taskList[parentTaskIndex].subtasks!.splice(taskIndex, 1);
         setQueryData();
       },
     }

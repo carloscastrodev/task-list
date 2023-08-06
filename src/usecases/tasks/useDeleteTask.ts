@@ -31,11 +31,11 @@ export const useDeleteTask: MutateHook<Task> = (queryKey) => {
       throw new Error('Parent task not found');
     }
 
-    const subtaskIndex = taskList[parentIndex].subtasks.findIndex(
+    const subtaskIndex = taskList[parentIndex].subtasks!.findIndex(
       (t) => t.id === subtask.id
     );
 
-    taskList[parentIndex].subtasks.splice(subtaskIndex, 1);
+    taskList[parentIndex].subtasks?.splice(subtaskIndex, 1);
 
     setQueryData();
   };
