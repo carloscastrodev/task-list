@@ -36,7 +36,7 @@ Before running the application, make sure you have the following installed on yo
 1. Clone this repository to your local machine:
 
 ```bash
-git clone <repository_url>
+git clone https://github.com/carloscastrodev/task-list.git
 cd task-list
 ```
 
