@@ -11,7 +11,7 @@ It consists of a simple task list application with the followings functionalitie
 5. Delete Task
 6. Order Tasks
 
-it can be accessed online at https://john-task-list.web.app
+it can be accessed online at https://buzzvel-task-list.web.app
 
 ## Getting Started
 
@@ -28,7 +28,7 @@ Before running the application, make sure you have the following installed on yo
 
 ### Get the backend
 
-1. Go to the [backend]() repository and follow the installation instructions there:
+1. Go to the [backend](https://github.com/carloscastrodev/task-list-api) repository and follow the installation instructions there:
 
 
 ### Clone
@@ -50,7 +50,7 @@ The API requires a `.env.local` file to store configuration variables. Create a 
 VITE_BACKEND_URL=http://host.docker.internal:3333
 ```
 
-The address `host.docker.internal` expects that you're running the [backend]() with port 3333 exposed to your host machine.
+The address `host.docker.internal` expects that you're running the [backend](https://github.com/carloscastrodev/task-list-api) with port 3333 exposed to your host machine.
 Change the url to http://localhost:3333 if running this application outside docker.
 
 ### Running with Docker
