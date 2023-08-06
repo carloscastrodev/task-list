@@ -1,3 +1,4 @@
+import { deleteTask } from '@/services/tasks';
 import { MutateHook } from '@/types/hooks';
 import { Task, TaskList, TaskStatus } from '@/types/task';
 import { getParentTaskIndex, mutateTaskInTaskList } from '@/utils';
@@ -12,7 +13,7 @@ export const useDeleteTask: MutateHook<Task> = (queryKey) => {
     queryClient.setQueryData(queryKey, [...taskList]);
   };
 
-  const deleteTask = (task: Task) => {
+  const removeTaskFromList = (task: Task) => {
     const taskIndex = taskList.findIndex((t) => t.id === task.id);
 
     taskList.splice(taskIndex, 1);
@@ -20,7 +21,7 @@ export const useDeleteTask: MutateHook<Task> = (queryKey) => {
     setQueryData();
   };
 
-  const deleteSubtask = (subtask: Task) => {
+  const removeSubtaskFromList = (subtask: Task) => {
     const parentIndex = getParentTaskIndex(taskList, subtask);
 
     if (parentIndex === -1) {
@@ -48,16 +49,16 @@ export const useDeleteTask: MutateHook<Task> = (queryKey) => {
 
       setQueryData();
 
-      //const task = actuallySendTaskToBackend()
+      await deleteTask(task.id);
 
-      return deletedTask;
+      return task;
     },
     {
       onSuccess: (deletedTask) => {
         if (deletedTask.parentTaskId) {
-          deleteSubtask(deletedTask);
+          removeSubtaskFromList(deletedTask);
         } else {
-          deleteTask(deletedTask);
+          removeTaskFromList(deletedTask);
         }
       },
       onError: (_, task) => {

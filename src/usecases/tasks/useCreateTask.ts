@@ -1,3 +1,4 @@
+import { createTask } from '@/services/tasks';
 import { MutateHook } from '@/types/hooks';
 import { Task, TaskList, TaskStatus } from '@/types/task';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -11,8 +12,8 @@ export const useCreateTask: MutateHook<CreateTaskData> = (queryKey) => {
 
   const taskList: TaskList = queryClient.getQueryData(queryKey) ?? [];
 
-  const addedTaskTempId = new Date().getTime();
-  const addedTaskTempPriority = new Date().getTime();
+  const addedTaskTempId = -1;
+  const addedTaskTempPriority = -1;
 
   const setQueryData = () => {
     queryClient.setQueryData(queryKey, [...taskList]);
@@ -37,9 +38,10 @@ export const useCreateTask: MutateHook<CreateTaskData> = (queryKey) => {
 
       setQueryData();
 
-      //const task = actuallySendTaskToBackend()
-
-      return taskList[0];
+      return await createTask({
+        description,
+        priority: addedTaskTempPriority,
+      });
     },
     {
       onSuccess: (task) => {
@@ -51,6 +53,8 @@ export const useCreateTask: MutateHook<CreateTaskData> = (queryKey) => {
       },
       onError: () => {
         // report error to user
+        console.log('err', taskList, addedTaskTempId);
+
         queryClient.setQueryData(
           queryKey,
           taskList.filter((task) => task.id !== addedTaskTempId)

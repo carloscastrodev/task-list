@@ -1,3 +1,4 @@
+import { completeTask } from '@/services/tasks';
 import { MutateHook } from '@/types/hooks';
 import { Task, TaskList, TaskStatus } from '@/types/task';
 import { mutateTaskInTaskList } from '@/utils';
@@ -30,13 +31,11 @@ export const useCompleteTask: MutateHook<Task> = (queryKey) => {
 
   const { mutate, isLoading, isError } = useMutation<Task, unknown, Task, void>(
     async (task) => {
-      const doneTask = fullyCompleteTask(task);
+      fullyCompleteTask(task);
 
       setQueryData();
 
-      //const task = actuallySendTaskToBackend()
-
-      return doneTask;
+      return await completeTask(task.id);
     },
     {
       onSuccess: (completeTask) => {

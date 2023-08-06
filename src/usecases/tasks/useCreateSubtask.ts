@@ -1,3 +1,4 @@
+import { createTask } from '@/services/tasks';
 import { MutateHook } from '@/types/hooks';
 import { Task, TaskList, TaskStatus } from '@/types/task';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -12,7 +13,8 @@ export const useCreateSubtask: MutateHook<CreateSubtaskData> = (queryKey) => {
 
   const taskList: TaskList = queryClient.getQueryData(queryKey) ?? [];
 
-  const addedTaskTempId = new Date().getTime();
+  const addedTaskTempId = -1;
+  const addedTaskTempPriority = -1;
 
   const setQueryData = () => {
     queryClient.setQueryData(queryKey, [...taskList]);
@@ -36,16 +38,18 @@ export const useCreateSubtask: MutateHook<CreateSubtaskData> = (queryKey) => {
         description,
         createdAt: new Date().toUTCString(),
         parentTaskId: parentTask.id,
-        priority: 0,
+        priority: addedTaskTempPriority,
         status: TaskStatus.PENDING,
         subtasks: [],
       });
 
       setQueryData();
 
-      //const task = actuallySendTaskToBackend()
-
-      return taskList[parentTaskIndex].subtasks[0];
+      return await createTask({
+        description,
+        priority: addedTaskTempPriority,
+        parentTaskId: parentTask.id,
+      });
     },
     {
       onSuccess: (task) => {

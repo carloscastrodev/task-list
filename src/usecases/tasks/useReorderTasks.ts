@@ -1,3 +1,4 @@
+import { updatePriorities } from '@/services/tasks';
 import { MutateHook } from '@/types/hooks';
 import { TaskList } from '@/types/task';
 import { updateTasksPriority } from '@/utils';
@@ -33,7 +34,7 @@ export const useReorderTasks: MutateHook<ReorderTaskData> = (queryKey) => {
   };
 
   const { mutate, isLoading, isError } = useMutation<
-    TaskIdToPriorityMap,
+    void,
     unknown,
     ReorderTaskData,
     void
@@ -48,9 +49,7 @@ export const useReorderTasks: MutateHook<ReorderTaskData> = (queryKey) => {
         return acc;
       }, {} as TaskIdToPriorityMap);
 
-      //const task = actuallySendTaskToBackend()
-
-      return taskPriorityMap;
+      await updatePriorities(taskPriorityMap);
     },
     {
       onError: (_, { taskIndex, destinationIndex }) => {
