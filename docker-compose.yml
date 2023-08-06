@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:    
+  web:
+    restart: always
+    ports:
+      - 5173:5173
+    build:
+      context: '.'
+      dockerfile: Dockerfile.development
+    env_file:
+      - .env.local
+    volumes:
+      - .:/usr/src/app
+    command: 'sh -c "npm rebuild esbuild && yarn dev"'
+    
