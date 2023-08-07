@@ -47,21 +47,35 @@ The API requires a `.env.local` file to store configuration variables. Create a 
 
 ```dotenv
 # .env.example
-VITE_BACKEND_URL=http://host.docker.internal:3333
+VITE_BACKEND_URL=http://api-address
 ```
 
-The address `host.docker.internal` expects that you're running the [backend](https://github.com/carloscastrodev/task-list-api) with port 3333 exposed to your host machine.
-Change the url to http://localhost:3333 if running this application outside docker.
+Change the url from http://api-address to the [backend](https://github.com/carloscastrodev/task-list-api) address (http://localhost:3333 if running locally).
 
 ### Running with Docker
 
-To run the application using Docker, make sure you have Docker installed and running on your system. Then, use the following command:
+To run the application using Docker, make sure you have Docker installed and running on your system. Then, do the following:
 
+1. Install the dependencies using npm or Yarn:
+
+Using npm:
+
+```bash
+npm install
+```
+
+Using Yarn:
+
+```bash
+yarn
+```
+
+2. Run with Docker Compose
 ```bash
 docker-compose up -d
 ```
 
-This command will start the application, listening at port 5173. This might take a few seconds.
+This command will start the application, listening at port 5173. This might take a few minutes.
 
 It then can be accessed at http://localhost:5173
 
