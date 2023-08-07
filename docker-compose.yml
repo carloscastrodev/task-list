@@ -1,16 +1,52 @@
 version: '3.9'
 
-services:    
+services: 
+  db:
+    image: postgres:latest
+    ports:
+      - 5434:5432
+    restart: on-failure
+    networks:
+      - app
+    environment:
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_USER: john
+      POSTGRES_DB: buzzvel
+    expose:
+      - 5432
+    
+  api:
+    image: admiralchopper/task-list-api:1.0.0
+    restart: always
+    networks:
+      - app
+    depends_on:
+      - db
+    ports:
+      - 3333:3333
+    environment:
+      - DATABASE_URL=postgresql://john:1234@db:5432/buzzvel?connect_timeout=300
+      - PORT=3333
+      - NODE_ENV=development
+    expose:
+      - 3333
+
   web:
+    depends_on:
+      - api
+    networks:
+      - app
     restart: always
     ports:
       - 5173:5173
     build:
       context: '.'
       dockerfile: Dockerfile.development
-    env_file:
-      - .env.local
+    environment:
+      - VITE_BACKEND_URL=http://localhost:3333
     volumes:
       - .:/usr/src/app
     command: 'sh -c "npm rebuild esbuild && yarn dev"'
     
+networks:
+  app:
