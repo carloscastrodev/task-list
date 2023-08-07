@@ -51,11 +51,13 @@ export function TasksItem({
         </div>
       </div>
 
-      <TasksItemSubtasks
-        task={task}
-        onCompleteTask={onCompleteTask}
-        onDeleteTask={onDeleteTask}
-      />
+      {!task.parentTaskId ? (
+        <TasksItemSubtasks
+          task={task}
+          onCompleteTask={onCompleteTask}
+          onDeleteTask={onDeleteTask}
+        />
+      ) : null}
     </>
   );
 }

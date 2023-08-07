@@ -17,7 +17,8 @@ export const useCompleteTask: MutateHook<Task> = (queryKey) => {
   };
 
   const fullyCompleteTask = (task: Task) => {
-    if (task.subtasks.length) {
+    // TODO -> This optional (?) here is due to a bug related to the complete task api response. Should be resolved there before removing the optional here.
+    if (task.subtasks?.length) {
       task.subtasks.forEach(fullyCompleteTask);
     }
 
