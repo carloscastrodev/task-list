@@ -26,14 +26,14 @@ Before running the application, make sure you have the following installed on yo
 - [npm](https://docs.npmjs.com/getting-started) or [Yarn](https://yarnpkg.com/getting-started) (latest version)
 
 
-### Get the backend
+### Get the backend (If not using docker)
 
-1. Go to the [backend](https://github.com/carloscastrodev/task-list-api) repository and follow the installation instructions there:
+Go to the [backend](https://github.com/carloscastrodev/task-list-api) repository and follow the installation instructions there.
 
 
 ### Clone
 
-1. Clone this repository to your local machine:
+Clone this repository to your local machine:
 
 ```bash
 git clone https://github.com/carloscastrodev/task-list.git
@@ -75,13 +75,13 @@ yarn
 docker-compose up -d
 ```
 
-This command will start the application, listening at port 5173. This might take a few minutes.
+This command will bootup a postgres container, along with the api image and start the frontend application, listening at port 5173. This might take a few minutes.
 
 It then can be accessed at http://localhost:5173
 
 ### Running without Docker
 
-To run the API without Docker, use the following commands:
+To run the API without Docker, [install the backend](https://github.com/carloscastrodev/task-list-api) and then use the following commands:
 
 1. Install the dependencies using npm or Yarn:
 
